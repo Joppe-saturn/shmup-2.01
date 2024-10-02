@@ -7,4 +7,5 @@ public class Weapon : MonoBehaviour
     [SerializeField] public GameObject bullet;
     public int projectileCount;
     public int damage;
+    public float bulletSpeed;
 }

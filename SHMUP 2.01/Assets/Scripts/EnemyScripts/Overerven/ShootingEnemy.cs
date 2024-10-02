@@ -6,13 +6,8 @@ using UnityEngine;
 public class ShootingEnemy : BaseEnemy
 {
     public float shootingSpeed;
-    public Weapon weapon;
+    [SerializeField] public Weapon weapon;
     public Vector3 defaultPosition;
-
-    private void Start()
-    {
-        weapon = GetComponent<Weapon>();
-    }
 
     private void Update()
     {
@@ -23,6 +18,9 @@ public class ShootingEnemy : BaseEnemy
     public void Shoot(Vector3 target)
     {
         GameObject newBullet = Instantiate(weapon.bullet, transform.position, Quaternion.identity);
-        newBullet.transform.up = target - transform.position - transform.position; //I got this from https://discussions.unity.com/t/lookat-2d-equivalent/88118/12
+        newBullet.tag = transform.tag;
+        newBullet.transform.up = target - transform.position; //I got this from https://discussions.unity.com/t/lookat-2d-equivalent/88118/12
+        newBullet.GetComponent<BulletMove>().damage = weapon.damage;
+        newBullet.GetComponent<BulletMove>().bulletSpeed = weapon.bulletSpeed;
     }
 }

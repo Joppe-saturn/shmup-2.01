@@ -26,7 +26,7 @@ public class Enemy2 : ShootingEnemy
         }
         while (true)
         {
-            yield return new WaitForSeconds(shootingSpeed);
+            yield return new WaitForSeconds(shootingSpeed * 2);
             switch (state)
             {
                 case attackState.down:
