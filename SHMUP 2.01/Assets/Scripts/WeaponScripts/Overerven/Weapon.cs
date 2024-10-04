@@ -8,4 +8,5 @@ public class Weapon : MonoBehaviour
     public int projectileCount;
     public int damage;
     public float bulletSpeed;
+    public float cooldown;
 }

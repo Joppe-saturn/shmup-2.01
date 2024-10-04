@@ -334,13 +334,53 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4442033747367358699, guid: 9b42500fee40a6546a68420916ea9882, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1829405983}
+    - targetCorrespondingSourceObject: {fileID: 4442033747367358699, guid: 9b42500fee40a6546a68420916ea9882, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1829405984}
   m_SourcePrefab: {fileID: 100100000, guid: 9b42500fee40a6546a68420916ea9882, type: 3}
 --- !u!1 &1829405978 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4442033747367358699, guid: 9b42500fee40a6546a68420916ea9882, type: 3}
   m_PrefabInstance: {fileID: 1829405977}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1829405983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1829405978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f90d8e6d34952014185207ef8047d497, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 3
+  particleOnDeath: {fileID: 0}
+  isMoving: 0
+  bullet: {fileID: 1860648154992953542, guid: cc4ea148a71b4b54285b646e8e76e7c0, type: 3}
+  weapon: {fileID: 1829405984}
+--- !u!114 &1829405984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1829405978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92be21c228be48649a6a22197da9397b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullet: {fileID: 1860648154992953542, guid: cc4ea148a71b4b54285b646e8e76e7c0, type: 3}
+  projectileCount: 1
+  damage: 1
+  bulletSpeed: 10
+  cooldown: 0.2
 --- !u!1001 &202989399225696725
 PrefabInstance:
   m_ObjectHideFlags: 0
