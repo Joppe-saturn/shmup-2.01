@@ -4,38 +4,23 @@ using UnityEngine;
 
 public class Enemy1 : MovingEnemy
 {
-    public enum MoveState
-    {
-        leftRight,
-        toPlayer
-    }
-
-    public MoveState moveState;
-
     private void Start()
     {
-        StartCoroutine(lerpToPosition(transform.position, new Vector3(Random.Range(-8.0f, 8.0f), Random.Range(0.0f, 4.0f), 0), speed));
+        speed = 1 + (/*currentWave*/ 1 / 4);
+        if(GetComponent<Enemy3>() == null )
+        {
+            MoveToStartPos(speed);
+            StartCoroutine(startMoveCycle());
+        }
+    }
+
+    public void SetUp()
+    {
         StartCoroutine(startMoveCycle());
     }
 
-    private IEnumerator startMoveCycle()
+    private void Update()
     {
-        while (true)
-        {
-            while (isMoving)
-            {
-                yield return null;
-            }
-            switch(moveState)
-            {
-                case MoveState.leftRight:
-                    StartCoroutine(lerpToPosition(transform.position, new Vector3(Mathf.Abs(transform.position.x) / transform.position.x * -8, transform.position.y, 0), speed));
-                    break;
-                case MoveState.toPlayer:
-                    StartCoroutine(lerpToPosition(transform.position, new Vector3(Mathf.Abs(transform.position.x) / transform.position.x * -8, transform.position.y + (player.transform.position.y - transform.position.y) / 10, 0), speed));
-                    break;
-            }
-            yield return null;
-        }
+        speed = 1 + (/*currentWave*/ 1 / 4);
     }
 }

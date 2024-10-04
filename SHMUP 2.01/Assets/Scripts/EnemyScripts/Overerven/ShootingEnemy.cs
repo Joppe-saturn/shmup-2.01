@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,11 +8,13 @@ public class ShootingEnemy : BaseEnemy
     [SerializeField] public Weapon weapon;
     public Vector3 defaultPosition;
 
-    private void Update()
+    public enum attackState
     {
-        shootingSpeed = 1 + (/*currentWave*/ 1 / 4);
-        weapon.projectileCount = 1 + Math.Abs(/*currentWave*/ 1 / 2);
+        down,
+        toPlayer
     }
+
+    public attackState state;
 
     public void Shoot(Vector3 target)
     {
@@ -22,5 +23,26 @@ public class ShootingEnemy : BaseEnemy
         newBullet.transform.up = target - transform.position; //I got this from https://discussions.unity.com/t/lookat-2d-equivalent/88118/12
         newBullet.GetComponent<BulletMove>().damage = weapon.damage;
         newBullet.GetComponent<BulletMove>().bulletSpeed = weapon.bulletSpeed;
+    }
+
+    public IEnumerator attackCycle()
+    {
+        while (isMoving)
+        {
+            yield return null;
+        }
+        while (true)
+        {
+            yield return new WaitForSeconds(shootingSpeed * 2);
+            switch (state)
+            {
+                case attackState.down:
+                    Shoot(new Vector3(transform.position.x, 0, 0));
+                    break;
+                case attackState.toPlayer:
+                    Shoot(player.transform.position);
+                    break;
+            }
+        }
     }
 }

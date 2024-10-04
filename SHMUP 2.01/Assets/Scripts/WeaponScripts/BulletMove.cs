@@ -16,9 +16,5 @@ public class BulletMove : MonoBehaviour
     private void Update()
     {
         transform.position += transform.up * bulletSpeed * Time.deltaTime;
-        if(rb.isVisible) //I got this from https://docs.unity3d.com/ScriptReference/Renderer-isVisible.html
-        {
-            Destroy(gameObject);
-        }
     }
 }
