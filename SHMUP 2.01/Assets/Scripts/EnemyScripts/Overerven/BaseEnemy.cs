@@ -18,4 +18,15 @@ public class BaseEnemy : Character
     {
         StartCoroutine(lerpToPosition(transform.position, new Vector3(Random.Range(-Screen.width / (Screen.height / 1.75f), Screen.width / (Screen.height / 1.75f)), Random.Range(0.0f, Screen.height / (Screen.width / 2.5f)), 0), speed));
     }
+
+    private IEnumerator OffscreenImmunity()
+    {
+        isInvulnerable = true;
+        SpriteRenderer renderer = gameObject.GetComponent<SpriteRenderer>();
+        while(!renderer.isVisible)
+        {
+            yield return null;
+        }
+        isInvulnerable = false;
+    }
 }

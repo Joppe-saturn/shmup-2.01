@@ -8,7 +8,7 @@ public class Playermovement : Player
     private PlayerControls playerControls;
     private IEnumerator currentCorutine;
     [SerializeField] private float speed;
-
+     
     private void Awake()
     {
         currentCorutine = lerpToPosition(transform.position, transform.position, 0);

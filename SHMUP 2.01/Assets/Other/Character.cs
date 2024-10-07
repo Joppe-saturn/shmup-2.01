@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +8,7 @@ public class Character : MonoBehaviour
     public GameObject particleOnDeath;
     public bool isMoving = false;
     public float immortalTime = 0;
-    private bool isInvulnerable = false;
+    public bool isInvulnerable = false;
     private bool screenwrap = false;
 
     public void GetDamage(int damage)

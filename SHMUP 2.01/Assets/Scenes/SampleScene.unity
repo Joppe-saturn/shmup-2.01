@@ -196,7 +196,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6684772460488301668, guid: fd4a0b481a126ae498705267e3db2804, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6723532159295632350, guid: fd4a0b481a126ae498705267e3db2804, type: 3}
       propertyPath: m_IsTrigger
@@ -289,7 +289,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -396,6 +396,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1651054140543407426, guid: 5634211384670f341ae2827383dff4d7, type: 3}
+      propertyPath: immortalTime
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3264779062874713492, guid: 5634211384670f341ae2827383dff4d7, type: 3}
       propertyPath: weapon
       value: 
@@ -406,7 +410,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4235702175353586321, guid: 5634211384670f341ae2827383dff4d7, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4298388568682628661, guid: 5634211384670f341ae2827383dff4d7, type: 3}
       propertyPath: m_LocalScale.x
@@ -462,7 +466,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5083882032942522147, guid: 5634211384670f341ae2827383dff4d7, type: 3}
       propertyPath: immortalTime
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7592852986137497588, guid: 5634211384670f341ae2827383dff4d7, type: 3}
       propertyPath: m_IsTrigger
@@ -526,7 +530,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5694269518989966060, guid: f72c3bb44d595e0468604c382b535de1, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6849956840569507561, guid: f72c3bb44d595e0468604c382b535de1, type: 3}
       propertyPath: weapon

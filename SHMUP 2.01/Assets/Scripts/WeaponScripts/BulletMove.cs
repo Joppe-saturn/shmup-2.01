@@ -16,6 +16,10 @@ public class BulletMove : MonoBehaviour
     private void Update()
     {
         transform.position += transform.up * bulletSpeed * Time.deltaTime;
+        if(Mathf.Abs(transform.position.y) > Screen.height / (Screen.width / 5f))
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
