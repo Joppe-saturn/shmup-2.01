@@ -7,7 +7,7 @@ public class Enemy3 : BaseEnemy
     private Enemy1 movingEnemy;
     private Enemy2 shootingEnemy;
 
-    private void Awake()
+    private void Start()
     {
         movingEnemy = GetComponent<Enemy1>();
         shootingEnemy = GetComponent<Enemy2>();

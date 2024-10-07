@@ -6,7 +6,12 @@ using UnityEngine.InputSystem;
 public class Playermovement : Player
 {
     private PlayerControls playerControls;
+    private IEnumerator currentCorutine;
 
+    private void Awake()
+    {
+        currentCorutine = lerpToPosition(transform.position, transform.position, 0);
+    }
     private void Start()
     {
         playerControls = new PlayerControls();
@@ -32,16 +37,22 @@ public class Playermovement : Player
 
     private void InputMove(InputAction.CallbackContext obj)
     {
-        Debug.Log(transform.position + new Vector3(obj.ReadValue<Vector2>().x, 0, 0));
         StartCoroutine(OutputMove(obj));
     }
 
     private IEnumerator OutputMove(InputAction.CallbackContext obj)
     {
+        StopCoroutine(currentCorutine);
+        currentCorutine = lerpToPosition(transform.position, transform.position + new Vector3(obj.ReadValue<Vector2>().x / 10, 0, 0), 1);
         while (playerControls.Game.Movement.IsPressed())
         {
-            lerpToPosition(transform.position, transform.position + new Vector3(obj.ReadValue<Vector2>().x, 0, 0));
+            Debug.Log(isMoving);
+            if(!isMoving)
+            {
+                StartCoroutine(lerpToPosition(transform.position, transform.position + new Vector3(obj.ReadValue<Vector2>().x / 10, 0, 0), 1));
+            }
             yield return null;
         }
+        StopCoroutine(currentCorutine);
     }
 }
