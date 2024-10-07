@@ -7,11 +7,13 @@ public class Playermovement : Player
 {
     private PlayerControls playerControls;
     private IEnumerator currentCorutine;
+    [SerializeField] private float speed;
 
     private void Awake()
     {
         currentCorutine = lerpToPosition(transform.position, transform.position, 0);
     }
+
     private void Start()
     {
         playerControls = new PlayerControls();
@@ -43,13 +45,13 @@ public class Playermovement : Player
     private IEnumerator OutputMove(InputAction.CallbackContext obj)
     {
         StopCoroutine(currentCorutine);
-        currentCorutine = lerpToPosition(transform.position, transform.position + new Vector3(obj.ReadValue<Vector2>().x / 10, 0, 0), 1);
+        isMoving = false;
         while (playerControls.Game.Movement.IsPressed())
         {
-            Debug.Log(isMoving);
             if(!isMoving)
             {
-                StartCoroutine(lerpToPosition(transform.position, transform.position + new Vector3(obj.ReadValue<Vector2>().x / 10, 0, 0), 1));
+                currentCorutine = lerpToPosition(transform.position, transform.position + new Vector3(obj.ReadValue<Vector2>().x / 10, 0, 0), speed);
+                StartCoroutine(currentCorutine);
             }
             yield return null;
         }

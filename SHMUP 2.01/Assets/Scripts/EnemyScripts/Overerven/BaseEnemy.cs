@@ -16,6 +16,6 @@ public class BaseEnemy : Character
 
     public void MoveToStartPos(float speed = 1)
     {
-        StartCoroutine(lerpToPosition(transform.position, new Vector3(Random.Range(-Screen.width / (Screen.height / 2), Screen.width / (Screen.height / 2)), Random.Range(0.0f, Screen.height / (Screen.width / 2.5f)), 0), speed));
+        StartCoroutine(lerpToPosition(transform.position, new Vector3(Random.Range(-Screen.width / (Screen.height / 1.75f), Screen.width / (Screen.height / 1.75f)), Random.Range(0.0f, Screen.height / (Screen.width / 2.5f)), 0), speed));
     }
 }
