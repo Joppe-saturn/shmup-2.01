@@ -21,7 +21,7 @@ public class Enemy2 : ShootingEnemy
 
     private void Update()
     {
-        shootingSpeed = 1 + (/*currentWave*/ 1 / 4);
-        weapon.projectileCount = 1 + Math.Abs(/*currentWave*/ 1 / 2);
+        shootingSpeed = 1.0f / (waveManager.currentWave / 4.0f);
+        weapon.projectileCount = 1 + Math.Abs(waveManager.currentWave / 2);
     }
 }

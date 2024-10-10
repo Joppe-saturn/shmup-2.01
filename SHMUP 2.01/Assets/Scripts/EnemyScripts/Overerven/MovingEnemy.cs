@@ -27,7 +27,7 @@ public class MovingEnemy : BaseEnemy
                     StartCoroutine(lerpToPosition(transform.position, new Vector3(Mathf.Abs(transform.position.x) / transform.position.x * -(Screen.height / (Screen.width / 1.75f)), transform.position.y, 0), speed));
                     break;
                 case MoveState.toPlayer:
-                    StartCoroutine(lerpToPosition(transform.position, new Vector3(Mathf.Abs(transform.position.x) / transform.position.x * -(Screen.height / (Screen.width / 1.75f)), transform.position.y + (player.transform.position.y - transform.position.y) / 10, 0), speed));
+                    StartCoroutine(lerpToPosition(transform.position, new Vector3(Mathf.Abs(transform.position.x) / transform.position.x * -(Screen.height / (Screen.width / 1.75f)), transform.position.y + (player.transform.position.y - transform.position.y) / 5, 0), speed));
                     break;
             }
             yield return null;

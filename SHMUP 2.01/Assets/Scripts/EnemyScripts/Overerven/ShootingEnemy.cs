@@ -37,7 +37,7 @@ public class ShootingEnemy : BaseEnemy
             switch (state)
             {
                 case attackState.down:
-                    Shoot(new Vector3(transform.position.x, 0, 0));
+                    Shoot(new Vector3(transform.position.x, -100, transform.position.z));
                     break;
                 case attackState.toPlayer:
                     Shoot(player.transform.position);

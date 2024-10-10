@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5083882032942522147}
   - component: {fileID: 3264779062874713492}
   - component: {fileID: 7592852986137497588}
+  - component: {fileID: 143117060245823013}
   m_Layer: 0
   m_Name: Enemy 3
   m_TagString: Enemy
@@ -32,7 +33,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 8, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -104,8 +105,11 @@ MonoBehaviour:
   health: 2
   particleOnDeath: {fileID: 0}
   isMoving: 0
+  immortalTime: 1
+  isInvulnerable: 0
   player: {fileID: 0}
   dropLoot: {fileID: 0}
+  waveManager: {fileID: 0}
 --- !u!114 &2695782720363240975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,10 +142,13 @@ MonoBehaviour:
   health: 0
   particleOnDeath: {fileID: 0}
   isMoving: 0
+  immortalTime: 0
+  isInvulnerable: 0
   player: {fileID: 0}
   dropLoot: {fileID: 0}
+  waveManager: {fileID: 0}
   speed: 0
-  moveState: 0
+  moveState: 1
 --- !u!114 &3264779062874713492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,8 +164,11 @@ MonoBehaviour:
   health: 0
   particleOnDeath: {fileID: 0}
   isMoving: 0
+  immortalTime: 0
+  isInvulnerable: 0
   player: {fileID: 0}
   dropLoot: {fileID: 0}
+  waveManager: {fileID: 0}
   shootingSpeed: 0
   weapon: {fileID: 2695782720363240975}
   defaultPosition: {x: 0, y: 0, z: 0}
@@ -192,7 +202,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -208,3 +218,30 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.32, y: 0.32}
   m_EdgeRadius: 0
+--- !u!50 &143117060245823013
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4235702175353586321}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.0001
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4

@@ -6,7 +6,7 @@ public class Enemy1 : MovingEnemy
 {
     private void Start()
     {
-        speed = 1 + (/*currentWave*/ 1 / 4);
+        speed = 1.0f + (waveManager.currentWave / 4.0f);
         if(GetComponent<Enemy3>() == null )
         {
             MoveToStartPos(speed);
@@ -21,6 +21,6 @@ public class Enemy1 : MovingEnemy
 
     private void Update()
     {
-        speed = 1 + (/*currentWave*/ 1 / 4);
+        speed = 1.0f + (waveManager.currentWave / 4.0f);
     }
 }

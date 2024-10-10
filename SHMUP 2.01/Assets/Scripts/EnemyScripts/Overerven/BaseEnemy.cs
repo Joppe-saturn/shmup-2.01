@@ -6,11 +6,16 @@ public class BaseEnemy : Character
 {
     [SerializeField] public GameObject player;
     [SerializeField] public GameObject dropLoot;
+    [SerializeField] public Wavemanager waveManager;
 
     private void Awake()
     {
         if(player == null) {
             player = FindFirstObjectByType<Player>().gameObject;
+        }
+        if (waveManager == null)
+        {
+            waveManager = FindFirstObjectByType<Wavemanager>();
         }
     }
 
@@ -28,5 +33,15 @@ public class BaseEnemy : Character
             yield return null;
         }
         isInvulnerable = false;
+    }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.GetComponent<Player>() != null)
+        {
+            collision.GetComponent<Player>().GetDamage(1);
+            isInvulnerable = false;
+            GetDamage(100000);
+        }
     }
 }
