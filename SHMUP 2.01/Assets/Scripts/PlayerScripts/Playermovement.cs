@@ -9,7 +9,7 @@ public class Playermovement : Player
     private IEnumerator currentCorutine;
     [SerializeField] private float speed;
 
-    private int currentTime = 1;
+    private float currentTime = 1;
 
     private void Awake()
     {
@@ -24,11 +24,6 @@ public class Playermovement : Player
         playerControls.Game.Shoot.performed += InputShoot;
         playerControls.Game.Movement.performed += InputMove;
         playerControls.Paused.Pause.performed += InputPause;
-    }
-   
-    private void Update()
-    {
-        Time.timeScale = currentTime;
     }
 
     private void InputShoot(InputAction.CallbackContext obj)
@@ -68,7 +63,29 @@ public class Playermovement : Player
 
     private void InputPause(InputAction.CallbackContext obj)
     {
-        currentTime += 1 - 2 * currentTime;
+        StartCoroutine(OutputPause(obj));
+    }
+
+    private IEnumerator OutputPause(InputAction.CallbackContext obj)
+    {
+        float newCurrentTime = currentTime + (1 - 2 * currentTime);
+        for(int i = 0; i < 100; i++)
+        {
+            currentTime -= 1.0f / 100.0f * (i + 1.0f) * (1.0f + newCurrentTime * -2.0f);
+            Debug.Log(currentTime);
+            if (currentTime < 0)
+            {
+                currentTime = 0;
+                break;
+            } else if (currentTime > 1)
+            {
+                currentTime = 1; 
+                break;
+            }
+            Time.timeScale = currentTime;
+            yield return new WaitForSeconds(0.02f * Time.timeScale);
+        }
+        Time.timeScale = currentTime;
         if (currentTime == 0)
         {
             playerControls.Game.Disable();
