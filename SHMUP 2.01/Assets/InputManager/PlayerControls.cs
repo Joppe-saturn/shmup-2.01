@@ -596,6 +596,67 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Paused"",
+            ""id"": ""8c71bf7c-f616-4110-a533-f0bc5924c502"",
+            ""actions"": [
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""fa3d92a8-9bd2-4d4d-8afd-3ce6677b7d91"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""122bf9cb-e62d-4784-a3d6-721ead86af12"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Pc"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""68f5e92e-647c-4d3d-a516-92ea5b34982e"",
+                    ""path"": ""<XInputController>/{Menu}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Xbox"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eb5ae5f0-4a2e-4fd8-b2db-5b692d781637"",
+                    ""path"": ""<DualShockGamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Playstation"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""557d5a2e-63a9-4401-aa44-aacb7da14f8d"",
+                    ""path"": ""<SwitchProControllerHID>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Switch"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -626,6 +687,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Game_Shoot = m_Game.FindAction("Shoot", throwIfNotFound: true);
         m_Game_Movement = m_Game.FindAction("Movement", throwIfNotFound: true);
         m_Game_Pause = m_Game.FindAction("Pause", throwIfNotFound: true);
+        // Paused
+        m_Paused = asset.FindActionMap("Paused", throwIfNotFound: true);
+        m_Paused_Pause = m_Paused.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -745,6 +809,52 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         }
     }
     public GameActions @Game => new GameActions(this);
+
+    // Paused
+    private readonly InputActionMap m_Paused;
+    private List<IPausedActions> m_PausedActionsCallbackInterfaces = new List<IPausedActions>();
+    private readonly InputAction m_Paused_Pause;
+    public struct PausedActions
+    {
+        private @PlayerControls m_Wrapper;
+        public PausedActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Pause => m_Wrapper.m_Paused_Pause;
+        public InputActionMap Get() { return m_Wrapper.m_Paused; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(PausedActions set) { return set.Get(); }
+        public void AddCallbacks(IPausedActions instance)
+        {
+            if (instance == null || m_Wrapper.m_PausedActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_PausedActionsCallbackInterfaces.Add(instance);
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
+        }
+
+        private void UnregisterCallbacks(IPausedActions instance)
+        {
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
+        }
+
+        public void RemoveCallbacks(IPausedActions instance)
+        {
+            if (m_Wrapper.m_PausedActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IPausedActions instance)
+        {
+            foreach (var item in m_Wrapper.m_PausedActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_PausedActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public PausedActions @Paused => new PausedActions(this);
     private int m_PcSchemeIndex = -1;
     public InputControlScheme PcScheme
     {
@@ -785,6 +895,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     {
         void OnShoot(InputAction.CallbackContext context);
         void OnMovement(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
+    }
+    public interface IPausedActions
+    {
         void OnPause(InputAction.CallbackContext context);
     }
 }

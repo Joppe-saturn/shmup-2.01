@@ -8,7 +8,9 @@ public class Playermovement : Player
     private PlayerControls playerControls;
     private IEnumerator currentCorutine;
     [SerializeField] private float speed;
-     
+
+    private int currentTime = 1;
+
     private void Awake()
     {
         currentCorutine = lerpToPosition(transform.position, transform.position, 0);
@@ -17,11 +19,17 @@ public class Playermovement : Player
     private void Start()
     {
         playerControls = new PlayerControls();
-        playerControls.Enable();
+        playerControls.Game.Enable();
+        playerControls.Paused.Enable();
         playerControls.Game.Shoot.performed += InputShoot;
         playerControls.Game.Movement.performed += InputMove;
+        playerControls.Paused.Pause.performed += InputPause;
     }
-
+   
+    private void Update()
+    {
+        Time.timeScale = currentTime;
+    }
 
     private void InputShoot(InputAction.CallbackContext obj)
     {
@@ -56,5 +64,18 @@ public class Playermovement : Player
             yield return null;
         }
         StopCoroutine(currentCorutine);
+    }
+
+    private void InputPause(InputAction.CallbackContext obj)
+    {
+        currentTime += 1 - 2 * currentTime;
+        if (currentTime == 0)
+        {
+            playerControls.Game.Disable();
+        }
+        else
+        {
+            playerControls.Game.Enable();
+        }
     }
 }
