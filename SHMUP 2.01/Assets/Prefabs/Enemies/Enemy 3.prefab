@@ -103,10 +103,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 2
-  particleOnDeath: {fileID: 0}
+  particleOnDeath: {fileID: 8186942366982220894, guid: c22fb205c0f48004a8efad6fa475aadf, type: 3}
   isMoving: 0
   immortalTime: 1
   isInvulnerable: 0
+  isAlive: 1
+  scoreOnDeath: 150
+  scoreManager: {fileID: 0}
   player: {fileID: 0}
   dropLoot: {fileID: 0}
   waveManager: {fileID: 0}
@@ -144,6 +147,9 @@ MonoBehaviour:
   isMoving: 0
   immortalTime: 0
   isInvulnerable: 0
+  isAlive: 1
+  scoreOnDeath: 0
+  scoreManager: {fileID: 0}
   player: {fileID: 0}
   dropLoot: {fileID: 0}
   waveManager: {fileID: 0}
@@ -166,6 +172,9 @@ MonoBehaviour:
   isMoving: 0
   immortalTime: 0
   isInvulnerable: 0
+  isAlive: 1
+  scoreOnDeath: 0
+  scoreManager: {fileID: 0}
   player: {fileID: 0}
   dropLoot: {fileID: 0}
   waveManager: {fileID: 0}

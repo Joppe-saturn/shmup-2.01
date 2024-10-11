@@ -26,6 +26,17 @@ public class Playermovement : Player
         playerControls.Paused.Pause.performed += InputPause;
     }
 
+    private void Update()
+    {
+        if(!isAlive)
+        {
+            playerControls.Game.Disable();
+            playerControls.Paused.Disable();
+            playerControls.Dead.Enable();
+            GetComponent<SpriteRenderer>().enabled = false;
+        }
+    }
+
     private void InputShoot(InputAction.CallbackContext obj)
     {
         StartCoroutine(OutputShoot(obj));

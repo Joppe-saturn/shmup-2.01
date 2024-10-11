@@ -31,16 +31,24 @@ public class ShootingEnemy : BaseEnemy
         {
             yield return null;
         }
-        while (true)
+        while (player.GetComponent<Player>().isAlive)
         {
             yield return new WaitForSeconds(shootingSpeed * 2);
             switch (state)
             {
                 case attackState.down:
-                    Shoot(new Vector3(transform.position.x, -100, transform.position.z));
+                    for(int i = 0; i < weapon.projectileCount; i++)
+                    {
+                        Shoot(new Vector3(transform.position.x, -100, transform.position.z));
+                        yield return new WaitForSeconds(0.25f);
+                    }
                     break;
                 case attackState.toPlayer:
-                    Shoot(player.transform.position);
+                    for (int i = 0; i < weapon.projectileCount; i++)
+                    {
+                        Shoot(player.transform.position);
+                        yield return new WaitForSeconds(0.25f);
+                    }
                     break;
             }
         }

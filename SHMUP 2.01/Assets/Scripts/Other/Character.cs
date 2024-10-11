@@ -10,6 +10,10 @@ public class Character : MonoBehaviour
     public float immortalTime = 0;
     public bool isInvulnerable = false;
     private bool screenwrap = false;
+    public bool isAlive = true;
+
+    [SerializeField] public int scoreOnDeath;
+    public ScoreManager scoreManager;
 
     public void GetDamage(int damage)
     {
@@ -18,11 +22,16 @@ public class Character : MonoBehaviour
             health -= damage;
             if (health < 1)
             {
+                AddScore();
                 if (particleOnDeath != null)
                 {
                     Instantiate(particleOnDeath, transform.position, Quaternion.identity);
                 }
-                gameObject.SetActive(false);
+                if(GetComponent<BaseEnemy>() != null)
+                {
+                    gameObject.SetActive(false);
+                }
+                isAlive = false;
             }
             else
             {
@@ -50,7 +59,7 @@ public class Character : MonoBehaviour
         isInvulnerable = false;
     }
 
-    public IEnumerator lerpToPosition(Vector3 from, Vector3 to, float speed = 1)
+    public IEnumerator lerpToPosition(Vector3 from, Vector3 to, float speed = 1, bool sine = false)
     {
         
         if (GetComponent<Screenwrap>() != null)
@@ -61,7 +70,12 @@ public class Character : MonoBehaviour
         float steps = Mathf.Abs((from - to).magnitude) * 75 / speed;
         for (float i = 0; i < 1; i += 1 / steps)
         {
-            transform.position = Vector3.Lerp(from, to, i);
+            int sineResult = 0;
+            if(sine)
+            {
+                sineResult = 1;
+            }
+            transform.position = Vector3.Lerp(from, to + new Vector3(0, Mathf.Sin(i*10) * sineResult, 0), i);
             yield return new WaitForSeconds(0.005f);
             if(screenwrap && Mathf.Abs(transform.position.x) > Screen.width / (Screen.height / 5.5f))
             {
@@ -74,5 +88,13 @@ public class Character : MonoBehaviour
             }
         }
         isMoving = false;
+    }
+
+    public virtual void AddScore()
+    {
+        if(scoreManager == null)
+        {
+            scoreManager = FindFirstObjectByType<ScoreManager>();
+        }
     }
 }

@@ -101,12 +101,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 2
-  particleOnDeath: {fileID: 0}
+  particleOnDeath: {fileID: 8186942366982220894, guid: c22fb205c0f48004a8efad6fa475aadf, type: 3}
   isMoving: 0
   immortalTime: 1
   isInvulnerable: 0
+  isAlive: 1
+  scoreOnDeath: 100
+  scoreManager: {fileID: 0}
   player: {fileID: 0}
   dropLoot: {fileID: 0}
+  waveManager: {fileID: 0}
   shootingSpeed: 2
   weapon: {fileID: 6976655181183260656}
   defaultPosition: {x: 0, y: 0, z: 0}

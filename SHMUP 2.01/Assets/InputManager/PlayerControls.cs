@@ -657,6 +657,34 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Dead"",
+            ""id"": ""7882cf54-02d6-474f-aa85-ce6204e398c0"",
+            ""actions"": [
+                {
+                    ""name"": ""New action"",
+                    ""type"": ""Button"",
+                    ""id"": ""2112dc26-b9e7-4597-82e4-016286e8a270"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""9f53a5de-fd15-4b91-9f06-f77688e1602d"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""New action"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -690,6 +718,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         // Paused
         m_Paused = asset.FindActionMap("Paused", throwIfNotFound: true);
         m_Paused_Pause = m_Paused.FindAction("Pause", throwIfNotFound: true);
+        // Dead
+        m_Dead = asset.FindActionMap("Dead", throwIfNotFound: true);
+        m_Dead_Newaction = m_Dead.FindAction("New action", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -855,6 +886,52 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         }
     }
     public PausedActions @Paused => new PausedActions(this);
+
+    // Dead
+    private readonly InputActionMap m_Dead;
+    private List<IDeadActions> m_DeadActionsCallbackInterfaces = new List<IDeadActions>();
+    private readonly InputAction m_Dead_Newaction;
+    public struct DeadActions
+    {
+        private @PlayerControls m_Wrapper;
+        public DeadActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Newaction => m_Wrapper.m_Dead_Newaction;
+        public InputActionMap Get() { return m_Wrapper.m_Dead; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(DeadActions set) { return set.Get(); }
+        public void AddCallbacks(IDeadActions instance)
+        {
+            if (instance == null || m_Wrapper.m_DeadActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_DeadActionsCallbackInterfaces.Add(instance);
+            @Newaction.started += instance.OnNewaction;
+            @Newaction.performed += instance.OnNewaction;
+            @Newaction.canceled += instance.OnNewaction;
+        }
+
+        private void UnregisterCallbacks(IDeadActions instance)
+        {
+            @Newaction.started -= instance.OnNewaction;
+            @Newaction.performed -= instance.OnNewaction;
+            @Newaction.canceled -= instance.OnNewaction;
+        }
+
+        public void RemoveCallbacks(IDeadActions instance)
+        {
+            if (m_Wrapper.m_DeadActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IDeadActions instance)
+        {
+            foreach (var item in m_Wrapper.m_DeadActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_DeadActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public DeadActions @Dead => new DeadActions(this);
     private int m_PcSchemeIndex = -1;
     public InputControlScheme PcScheme
     {
@@ -900,5 +977,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     public interface IPausedActions
     {
         void OnPause(InputAction.CallbackContext context);
+    }
+    public interface IDeadActions
+    {
+        void OnNewaction(InputAction.CallbackContext context);
     }
 }

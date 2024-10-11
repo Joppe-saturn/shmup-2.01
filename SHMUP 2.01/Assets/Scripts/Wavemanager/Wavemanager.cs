@@ -69,6 +69,23 @@ public class Wavemanager : MonoBehaviour
                                 currentEnemy.GetComponent<ShootingEnemy>().state = ShootingEnemy.attackState.toPlayer;
                             }
                         }
+                        if (currentEnemy.GetComponent<Boss>() != null)
+                        {
+                            currentEnemy.GetComponent<Boss>().state = ShootingEnemy.attackState.toPlayer;
+
+                            int outPut = Random.Range(0, 3);
+                            if (outPut == 0)
+                            {
+                                currentEnemy.GetComponent<Boss>().moveState = Boss.MoveState.still;
+                            }
+                            else if (outPut == 1) 
+                            {
+                                currentEnemy.GetComponent<Boss>().moveState = Boss.MoveState.leftRight;
+                            } else
+                            {
+                                currentEnemy.GetComponent<Boss>().moveState = Boss.MoveState.sine;
+                            }
+                        }
                     }
                 }
                 if(currentGroup < waves[realCurrentWave].enemyGroeps.Count - 1)
@@ -79,7 +96,6 @@ public class Wavemanager : MonoBehaviour
                 {
                     canSpawn = false;
                 }
-                Debug.Log(currentGroup);
             }
 
             int enemiesDead = 0;

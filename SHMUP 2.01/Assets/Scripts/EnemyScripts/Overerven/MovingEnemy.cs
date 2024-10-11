@@ -15,7 +15,7 @@ public class MovingEnemy : BaseEnemy
 
     public IEnumerator startMoveCycle()
     {
-        while (true)
+        while (player.GetComponent<Player>().isAlive)
         {
             while (isMoving)
             {
