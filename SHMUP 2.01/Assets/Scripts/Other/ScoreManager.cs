@@ -8,6 +8,10 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private GameObject square;
     [SerializeField] private int maxScoreDigits;
     [SerializeField] private List<Sprite> sprites = new List<Sprite>();
+    
+    private List<int> scoreList = new List<int>();
+    private int currentIndex;
+    private bool showHighScore;
 
     private void Update()
     {
@@ -28,6 +32,22 @@ public class ScoreManager : MonoBehaviour
             currentNumber.transform.parent = transform;
             int index = Mathf.FloorToInt(score / Mathf.Pow(10, currentMaxScore - i - 1) - Mathf.Floor(score / Mathf.Pow(10, currentMaxScore - i)) * 10);
             currentNumber.GetComponent<SpriteRenderer>().sprite = sprites[index];
+        }
+    }
+
+    public void ShowHighScore()
+    {
+        scoreList.Add(score);
+        scoreList.Sort();
+
+        for(int i = 0;i < scoreList.Count;i++)
+        {
+            if(scoreList[i] == score)
+            {
+                currentIndex = i;
+                showHighScore = true;
+                break;
+            }
         }
     }
 }
