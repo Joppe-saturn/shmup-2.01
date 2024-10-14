@@ -8,6 +8,7 @@ public class BaseEnemy : Character
     [SerializeField] public GameObject player;
     [SerializeField] public GameObject dropLoot;
     [SerializeField] public Wavemanager waveManager;
+    [SerializeField] public bool immortalPlayerCollision = false;
     
     private void Awake()
     {
@@ -29,9 +30,10 @@ public class BaseEnemy : Character
             isMoving = true;
         }
     }
+
     public void MoveToStartPos(float speed = 1)
     {
-        StartCoroutine(lerpToPosition(transform.position, new Vector3(Random.Range(-Screen.width / (Screen.height / 1.75f), Screen.width / (Screen.height / 1.75f)), Random.Range(0.0f, Screen.height / (Screen.width / 2.5f)), 0), speed));
+        StartCoroutine(lerpToPosition(transform.position, new Vector3(Random.Range(-Screen.width / (Screen.height / 1.75f), Screen.width / (Screen.height / 1.75f)), Random.Range(0.0f, Screen.height / (Screen.width / 2.5f)), 0), speed, false));
     }
 
     private IEnumerator OffscreenImmunity()
@@ -51,8 +53,11 @@ public class BaseEnemy : Character
         if(collision.GetComponent<Player>() != null)
         {
             collision.GetComponent<Player>().GetDamage(1);
-            isInvulnerable = false;
-            GetDamage(100000);
+            if(!immortalPlayerCollision)
+            {
+                isInvulnerable = false;
+                GetDamage(100000);
+            }
         }
     }
 

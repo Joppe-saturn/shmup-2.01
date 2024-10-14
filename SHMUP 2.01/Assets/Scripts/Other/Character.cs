@@ -70,12 +70,11 @@ public class Character : MonoBehaviour
         float steps = Mathf.Abs((from - to).magnitude) * 75 / speed;
         for (float i = 0; i < 1; i += 1 / steps)
         {
-            int sineResult = 0;
+            transform.position = Vector3.Lerp(from, to, i);
             if(sine)
             {
-                sineResult = 1;
+                transform.position += new Vector3(0, Mathf.Sin(i * steps * Mathf.PI / steps * 4) / 2, 0);
             }
-            transform.position = Vector3.Lerp(from, to + new Vector3(0, Mathf.Sin(i*10) * sineResult, 0), i);
             yield return new WaitForSeconds(0.005f);
             if(screenwrap && Mathf.Abs(transform.position.x) > Screen.width / (Screen.height / 5.5f))
             {

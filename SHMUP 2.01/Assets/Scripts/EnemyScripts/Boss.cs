@@ -20,7 +20,13 @@ public class Boss : ShootingEnemy
         {
             waveManager = FindFirstObjectByType<Wavemanager>();
         }
+        if (player == null)
+        {
+            player = FindFirstObjectByType<Player>().gameObject;
+        }
         health = 4 * waveManager.currentWave + 12;
+        shootingSpeed = 1.0f / (waveManager.currentWave / 4.0f);
+        weapon.projectileCount = 1 + (int)Mathf.Round(waveManager.currentWave / 2);
         StartCoroutine(attackCycle());
         MoveToStartPos();
         StartCoroutine(startMoveCycle());

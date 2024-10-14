@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1385131438255288239}
   m_Layer: 0
   m_Name: Boss
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -180,9 +180,10 @@ MonoBehaviour:
   isAlive: 1
   scoreOnDeath: 500
   scoreManager: {fileID: 0}
-  player: {fileID: 4442033747367358699, guid: 9b42500fee40a6546a68420916ea9882, type: 3}
+  player: {fileID: 0}
   dropLoot: {fileID: 0}
   waveManager: {fileID: 0}
+  immortalPlayerCollision: 1
   shootingSpeed: 0
   weapon: {fileID: 1385131438255288239}
   defaultPosition: {x: 0, y: 0, z: 0}
@@ -202,6 +203,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 1860648154992953542, guid: cc4ea148a71b4b54285b646e8e76e7c0, type: 3}
   projectileCount: 0
-  damage: 0
-  bulletSpeed: 0
+  damage: 1
+  bulletSpeed: 5
   cooldown: 0
