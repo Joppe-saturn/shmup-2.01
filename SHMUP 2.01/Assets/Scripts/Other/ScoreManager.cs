@@ -8,10 +8,17 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private GameObject square;
     [SerializeField] private int maxScoreDigits;
     [SerializeField] private List<Sprite> sprites = new List<Sprite>();
-    
-    private List<int> scoreList = new List<int>();
-    private int currentIndex;
-    private bool showHighScore;
+    private string playerName;
+    private bool updatedScore = false;
+    private Player player;
+    private HighScoreManager highScoreManager;
+
+    private void Start()
+    {
+        playerName = PlayerPrefs.GetString("currentPlayer");
+        player = FindAnyObjectByType<Player>();
+        highScoreManager = FindFirstObjectByType<HighScoreManager>();
+    }
 
     private void Update()
     {
@@ -33,21 +40,11 @@ public class ScoreManager : MonoBehaviour
             int index = Mathf.FloorToInt(score / Mathf.Pow(10, currentMaxScore - i - 1) - Mathf.Floor(score / Mathf.Pow(10, currentMaxScore - i)) * 10);
             currentNumber.GetComponent<SpriteRenderer>().sprite = sprites[index];
         }
-    }
 
-    public void ShowHighScore()
-    {
-        scoreList.Add(score);
-        scoreList.Sort();
-
-        for(int i = 0;i < scoreList.Count;i++)
+        if(!updatedScore && player.health < 1)
         {
-            if(scoreList[i] == score)
-            {
-                currentIndex = i;
-                showHighScore = true;
-                break;
-            }
+            highScoreManager.ShowScores(playerName, score);
+            updatedScore = true;
         }
     }
 }
