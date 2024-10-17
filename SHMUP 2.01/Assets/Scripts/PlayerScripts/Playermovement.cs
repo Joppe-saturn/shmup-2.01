@@ -83,7 +83,6 @@ public class Playermovement : Player
         for(int i = 0; i < 100; i++)
         {
             currentTime -= 1.0f / 100.0f * (i + 1.0f) * (1.0f + newCurrentTime * -2.0f);
-            Debug.Log(currentTime);
             if (currentTime < 0)
             {
                 currentTime = 0;

@@ -61,7 +61,6 @@ public class Character : MonoBehaviour
 
     public IEnumerator lerpToPosition(Vector3 from, Vector3 to, float speed = 1, bool sine = false)
     {
-        
         if (GetComponent<Screenwrap>() != null)
         {
             screenwrap = true;
@@ -78,8 +77,8 @@ public class Character : MonoBehaviour
             yield return new WaitForSeconds(0.005f);
             if(screenwrap && Mathf.Abs(transform.position.x) > Screen.width / (Screen.height / 5.5f))
             {
-                float childIndex = (transform.position.x / Mathf.Abs(transform.position.x) * 2 + 2) / 4;
-                transform.position = transform.GetChild((int)childIndex).position;
+                int childIndex = (int)((transform.position.x / Mathf.Abs(transform.position.x) + 1) / 2);
+                transform.position = transform.GetChild(childIndex).position;
             }
             if (transform.position == to)
             {
