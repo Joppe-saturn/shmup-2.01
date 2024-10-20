@@ -576,6 +576,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 382491059465103737, guid: efc088f96fa068541af3e940f5eec204, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 150
+      objectReference: {fileID: 0}
     - target: {fileID: 5347957424588231247, guid: efc088f96fa068541af3e940f5eec204, type: 3}
       propertyPath: m_Name
       value: HighScoreList

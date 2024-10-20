@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HighScoreManager : MonoBehaviour
 {
@@ -27,7 +28,6 @@ public class HighScoreManager : MonoBehaviour
     private void Start()
     {
         scores.Clear();
-        Reset();
         UpdateScoreList();
         HideScores();
     }
@@ -45,6 +45,7 @@ public class HighScoreManager : MonoBehaviour
                 if (scores[i].score < playerScore)
                 {
                     scores[i].score = playerScore;
+                    PlayerPrefs.SetInt(playerName, playerScore);
                 }
                 isNewPlayer = false;
                 break;
@@ -126,7 +127,7 @@ public class HighScoreManager : MonoBehaviour
             {
                 if(playerInfo[i * 10 + j].ToString() != "@")
                 {
-                    currentPlayer += playerInfo[i];
+                    currentPlayer += playerInfo[i * 10 + j];
                 }
             }
             if(currentPlayer.Length > 0)
@@ -134,6 +135,18 @@ public class HighScoreManager : MonoBehaviour
                 scores.Add(new HighScores(currentPlayer, PlayerPrefs.GetInt(currentPlayer, 0)));
             }
         }
+        Debug.Log(scores.Count);
+        Debug.Log(PlayerPrefs.GetString("playerInfo"));
         PlayerPrefs.Save();
+    }
+
+    public void TryAgain()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void Title()
+    {
+        SceneManager.LoadScene("Title");
     }
 }
