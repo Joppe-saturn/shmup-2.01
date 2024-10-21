@@ -94,7 +94,7 @@ public class HighScoreManager : MonoBehaviour
                 break;
             }
         }
-        displayedMessage += "----------\n" + @"<b>" + (currentPlayer + 1) + ". " + scores[currentPlayer].player + " - " + scores[currentPlayer].score + "</b>";
+        displayedMessage += "----------\n" + @"<b>" + (currentPlayer + 1) + ". " + scores[currentPlayer].player + " - " + playerScore + "</b>";
 
         transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = displayedMessage;
         transform.GetChild(0).gameObject.SetActive(true);
@@ -135,8 +135,6 @@ public class HighScoreManager : MonoBehaviour
                 scores.Add(new HighScores(currentPlayer, PlayerPrefs.GetInt(currentPlayer, 0)));
             }
         }
-        Debug.Log(scores.Count);
-        Debug.Log(PlayerPrefs.GetString("playerInfo"));
         PlayerPrefs.Save();
     }
 
